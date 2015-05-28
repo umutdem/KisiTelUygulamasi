@@ -28,4 +28,15 @@ public class GirisFacade extends AbstractFacade<Giris> {
         super(Giris.class);
     }
     
+    public boolean girisKontrol(Giris p_giris)
+    {
+        boolean result = false;
+        Giris g = (Giris)em.createNamedQuery("Giris.girisKontrol").setParameter("ad", p_giris.getAd()).setParameter("sifre", p_giris.getSifre()).getSingleResult();
+        if(g!=null)
+        {
+            result = true;
+        }
+        return result;        
+    }
+    
 }
