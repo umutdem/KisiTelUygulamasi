@@ -2,14 +2,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./anaTemplate.xhtml">
 
             <ui:define name="content">
-                
+                <h:form id="formListe">
+                    <p:panel header="Kişi Listesi" >
+                        <p:dataTable var="kisi" value="#{kisiBean.kisiList}" paginator="true" rows="2" rowHover="true" rowIndexVar="Kayıt">
+                            <f:facet name="header">
+                                Kişi Listesi
+                            </f:facet>
+                            <p:column headerText="Id" sortBy="#{kisi.no}" filterBy="#{kisi.no}">
+                                <h:outputText value="#{kisi.no}" />
+                            </p:column>
+
+                            <p:column headerText="Ad" sortBy="#{kisi.ad}" filterBy="#{kisi.ad}">
+                                <h:outputText value="#{kisi.ad}" />
+                            </p:column>
+
+                            <p:column headerText="Soyad" sortBy="#{kisi.soyad}" filterBy="#{kisi.soyad}">
+                                <h:outputText value="#{kisi.soyad}" />
+                            </p:column>
+
+                            <p:column headerText="Doğum Tarihi">
+                                <h:outputText value="#{kisi.dogtar}" >
+                                    <f:convertDateTime pattern="dd/MM/yyy" />
+                                </h:outputText>
+                            </p:column>
+                            
+                            <p:column headerText="Maaş">
+                                <h:outputText value="#{kisi.maas}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                Toplam kişi sayısı #{fn:length(kisiBean.kisiList)}
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
             </ui:define>
 
         </ui:composition>

@@ -7,7 +7,8 @@ package tr.gov.ptt.kisiteluygulamasi.bean;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 import tr.gov.ptt.kisiteluygulamasi.entity.Giris;
 import tr.gov.ptt.kisiteluygulamasi.service.GirisService;
 import tr.gov.ptt.kisiteluygulamasi.util.JSFUtil;
@@ -17,7 +18,7 @@ import tr.gov.ptt.kisiteluygulamasi.util.JSFUtil;
  * @author Administrator
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class GirisBean {
     
     private Giris giris;
@@ -42,6 +43,9 @@ public class GirisBean {
         
         if(kontrol)
         {
+            HttpSession session = JSFUtil.getSession();
+            session.setAttribute("username", giris.getAd());
+            session.setAttribute("userid", giris.getSifre());
             JSFUtil.mesajEkle("Hoşgeldin " + giris.getAd() + ",");
             return "menu.xhtml?faces-redirect=true";
         }
@@ -51,5 +55,12 @@ public class GirisBean {
             JSFUtil.hataMesajiEkle("Hatalı kullanıcı adı ve/veya şifre.");
             return "giris.xhtml?faces-redirect=true";
         }            
+    }
+    
+    public String sessionBitir()
+    {
+        HttpSession session = JSFUtil.getSession();
+        session.invalidate();
+        return "giris.xhtml?faces-redirect=true";
     }
 }
