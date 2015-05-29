@@ -26,6 +26,5 @@ public class KisiFacade extends AbstractFacade<Kisi> {
 
     public KisiFacade() {
         super(Kisi.class);
-    }
-    
+    }    
 }

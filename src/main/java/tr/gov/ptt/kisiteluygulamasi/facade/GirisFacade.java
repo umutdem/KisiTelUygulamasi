@@ -7,6 +7,7 @@ package tr.gov.ptt.kisiteluygulamasi.facade;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import tr.gov.ptt.kisiteluygulamasi.entity.Giris;
 
@@ -16,6 +17,7 @@ import tr.gov.ptt.kisiteluygulamasi.entity.Giris;
  */
 @Stateless
 public class GirisFacade extends AbstractFacade<Giris> {
+
     @PersistenceContext(unitName = "KisiTelUygulamasiPU")
     private EntityManager em;
 
@@ -27,16 +29,21 @@ public class GirisFacade extends AbstractFacade<Giris> {
     public GirisFacade() {
         super(Giris.class);
     }
-    
-    public boolean girisKontrol(Giris p_giris)
-    {
+
+    public boolean girisKontrol(Giris p_giris) {
         boolean result = false;
-        Giris g = (Giris)em.createNamedQuery("Giris.girisKontrol").setParameter("ad", p_giris.getAd()).setParameter("sifre", p_giris.getSifre()).getSingleResult();
-        if(g!=null)
-        {
+        Giris g = null;
+        try {
+            
+            g = (Giris) em.createNamedQuery("Giris.girisKontrol").setParameter("ad", p_giris.getAd()).setParameter("sifre", p_giris.getSifre()).getSingleResult();
+        } catch (NoResultException nre) {
+            System.out.println(nre.getMessage());
+            return result;
+        }
+        if (g != null) {
             result = true;
         }
-        return result;        
+        return result;
     }
-    
+
 }

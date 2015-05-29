@@ -24,7 +24,7 @@ public class GirisBean {
     @EJB
     private GirisService girisService;
 
-    public GirisBean(Giris giris) {
+    public GirisBean() {
         giris = new Giris();
     }
 
