@@ -29,7 +29,7 @@
                           header="NavigationBar" resizable="true" closable="true"
                           collapsible="true">
                 <ui:insert name="left"><h:form>
-                        <p:panelMenu style="width: 150px">
+                        <p:panelMenu style="width: 150px" rendered="false">
                             <p:submenu label="Kişi İşlemleri">
                                 <p:menuitem value="Kişi Ekle" outcome="kisiEkle.xhtml?faces-redirect=true"/>
                                 <p:menuitem value="Kişi Listele" outcome="kisiListele.xhtml?faces-redirect=true"/>                               
@@ -40,6 +40,7 @@
                             </p:submenu>
                             
                         </p:panelMenu>
+                        <p:menu model="#{menuBean.model}"/>
                     </h:form></ui:insert>
 
             </p:layoutUnit>

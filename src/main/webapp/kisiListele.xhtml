@@ -13,8 +13,11 @@
 
             <ui:define name="content">
                 <h:form id="formListe">
+                    <p:growl id="msgs" showDetail="true"/>
                     <p:panel header="Kişi Listesi" >
-                        <p:dataTable var="kisi" value="#{kisiBean.kisiList}" paginator="true" rows="2" rowHover="true" rowIndexVar="Kayıt">
+                        <p:dataTable var="kisi" value="#{kisiBean.kisiList}" editable="true" paginator="true" rows="10" rowHover="true" rowIndexVar="Kayıt">
+                            <p:ajax event="rowEdit" listener="#{kisiBean.onRowEdit}" update=":formListe:msgs"/>
+                            <p:ajax event="rowEditCancel" listener="#{kisiBean.onRowCancel}" update=":formListe:msgs"/>
                             <f:facet name="header">
                                 Kişi Listesi
                             </f:facet>
@@ -22,22 +25,43 @@
                                 <h:outputText value="#{kisi.no}" />
                             </p:column>
 
+
                             <p:column headerText="Ad" sortBy="#{kisi.ad}" filterBy="#{kisi.ad}">
-                                <h:outputText value="#{kisi.ad}" />
+                                <p:cellEditor>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{kisi.ad}" />
+                                    </f:facet>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{kisi.ad}" />
+                                    </f:facet>
+                                </p:cellEditor>
                             </p:column>
-
-                            <p:column headerText="Soyad" sortBy="#{kisi.soyad}" filterBy="#{kisi.soyad}">
-                                <h:outputText value="#{kisi.soyad}" />
-                            </p:column>
-
+                            
+                            
+                                <p:column headerText="Soyad" sortBy="#{kisi.soyad}" filterBy="#{kisi.soyad}">
+                                   <p:cellEditor>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{kisi.soyad}" />
+                                    </f:facet>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{kisi.soyad}" />
+                                    </f:facet>
+                                </p:cellEditor>                                
+                                   
+                                </p:column>
+                            
                             <p:column headerText="Doğum Tarihi">
                                 <h:outputText value="#{kisi.dogtar}" >
                                     <f:convertDateTime pattern="dd/MM/yyy" />
                                 </h:outputText>
                             </p:column>
-                            
+
                             <p:column headerText="Maaş">
                                 <h:outputText value="#{kisi.maas}" />
+                            </p:column>
+                            
+                            <p:column style="width: 6%">
+                                <p:rowEditor/>
                             </p:column>
                             <f:facet name="footer">
                                 Toplam kişi sayısı #{fn:length(kisiBean.kisiList)}

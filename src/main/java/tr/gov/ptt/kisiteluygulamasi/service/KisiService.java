@@ -29,4 +29,9 @@ public class KisiService {
     {
         return kisiFacade.findAll();
     }
+    
+    public void kisiGuncelle(Kisi p_kisi)  
+    {
+        kisiFacade.edit(p_kisi);
+    }
 }

@@ -16,13 +16,13 @@
                         <p:messages/>
                         <p:panelGrid columns="3">
                             <p:outputLabel value="Kullanıcı Adı: "/>
-                            <p:inputText id ="ad" label ="kullaniciadi" value="#{girisBean.giris.ad}" required="true" requiredMessage="Ad Boş Geçilemez!!!">
-                                <p:ajax event="keyup" update="adMsg"/>
+                            <p:inputText id ="ad" label ="kullaniciadi" value="#{girisBean.giris.ad}" required="true" >
+                                <p:ajax event="blur" update="adMsg"/>
                             </p:inputText>
                             <p:message for="ad" id="adMsg" />
                             
                             <p:outputLabel value="Şifre: "/>
-                            <p:password id ="sifre" label ="sifre" value="#{girisBean.giris.sifre}" required="true" requiredMessage="Şifre Boş Geçilemez!!!">
+                            <p:password id ="sifre" label ="sifre" value="#{girisBean.giris.sifre}" required="true" >
                                 <p:ajax event="keyup" update="sifreMsg"/>
                                 <f:validateLength minimum="4"/>
                             </p:password>
